@@ -40,7 +40,7 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "System.Data.SQLite.EF6": {
+            "System.Data.SQLite": {
               "target": "Package",
               "version": "[1.0.118, )"
             }
