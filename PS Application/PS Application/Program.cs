@@ -5,8 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PS_Application;
-using MySql.Data;
-using MySql.Data.MySqlClient;
+using System.Data.SQLite;
 
 namespace PS_Application
 {
