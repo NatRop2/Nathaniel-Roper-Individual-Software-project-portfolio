@@ -1,3 +1,0 @@
-C:\Users\Nathaniel\source\repos\Nathaniel-Roper-Individual-Software-project-portfolio\PS Application\PS Application\obj\Debug\PS Application.csproj.AssemblyReference.cache
-C:\Users\Nathaniel\source\repos\Nathaniel-Roper-Individual-Software-project-portfolio\PS Application\PS Application\obj\Debug\PS Application.csproj.SuggestedBindingRedirects.cache
-C:\Users\Nathaniel\source\repos\Nathaniel-Roper-Individual-Software-project-portfolio\PS Application\PS Application\obj\Debug\PS Application.csproj.CoreCompileInputs.cache
