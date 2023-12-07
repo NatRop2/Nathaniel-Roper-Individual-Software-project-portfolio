@@ -44,11 +44,10 @@ while (counter < 5)
 static SQLiteConnection CreateConnection()
 {
 
-    SQLiteConnection sqlite_conn = new SQLiteConnection("Data Source=CourseworkDatabase.db; Version = 3; New = True; Compress = True;");
+    SQLiteConnection sqlite_conn = new SQLiteConnection("Data Source=PSApplication\CourseworkDatabase.db; Version = 3; New = True; Compress = True;");
     try
     {
         sqlite_conn.Open();
-        Console.WriteLine("Database connection open");
     }
     catch (Exception ex)
     {
