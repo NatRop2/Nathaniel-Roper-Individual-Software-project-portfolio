@@ -8,8 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-SQLiteConnection sqlite_conn;
-sqlite_conn = CreateConnection();
+SQLiteConnection connection;
+connection = new SQLiteConnection("Data Source=CourseworkDatabase.sqlite3");
+if (!File.Exists("./CourseworkDatabase.sqlite3"))
+{
+    Console.WriteLine("File Doesn't Exist");
+}
 
 Console.WriteLine("Login");
 Console.WriteLine("---------------------------");
@@ -26,35 +30,12 @@ while (counter < 5)
 
     while (user_exists == false)
     {
-        SQLiteDataReader sqlite_datareader;
-        SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand();
-        sqlite_cmd.CommandText = ("SELECT EXISTS( SELECT * FROM Users WHERE Username = '" + temp_user + "' )");
-        sqlite_datareader = sqlite_cmd.ExecuteReader();
-        while (sqlite_datareader.Read())
-        {
-            string myreader = sqlite_datareader.GetString(0);
-            Console.WriteLine(myreader);
-        }
         
     }
     Console.WriteLine("Input Password:");
     temp_password = Console.ReadLine();
 }
 
-static SQLiteConnection CreateConnection()
-{
-
-    SQLiteConnection sqlite_conn = new SQLiteConnection("Data Source=PSApplication\CourseworkDatabase.db; Version = 3; New = True; Compress = True;");
-    try
-    {
-        sqlite_conn.Open();
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex.Message);
-    }
-    return sqlite_conn;
-}
 
 
 
