@@ -108,10 +108,10 @@ namespace PS_Application
     class MainMenu : ConsoleMenu //The main menu 
     {
 
-        ProjectManager _projectManager;
-        public MainMenu(ProjectManager pProjectManager) //Calls the projectmanager which contains a list of all the projects 
+        User _user;
+        public MainMenu(User user) //Calls the projectmanager which contains a list of all the projects 
         {
-            _projectManager = pProjectManager;
+            _user = user;
         }
 
         public override void CreateMenu() //Leads to the Add New Project Menu, Load File Menu, View Existing Projects Menu and Display Portfolio Summary Menu

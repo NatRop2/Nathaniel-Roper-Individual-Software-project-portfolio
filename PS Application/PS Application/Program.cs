@@ -19,7 +19,8 @@ Console.WriteLine("---------------------------");
 
 //Setting up variables for the loops
 string temp_user = "";
-string temp_password;
+string temp_password = "";
+User currentUser = new User(temp_user,temp_password);
 int counter = 0;
 bool user_exists = false;
 SQLiteDataReader reader;
@@ -59,21 +60,37 @@ while (counter < 5)
     Console.WriteLine("Input Password:");
     temp_password = Console.ReadLine();
     cmd = connection.CreateCommand();
-    cmd.CommandText = "SELECT Password FROM Users WHERE Username='" + temp_user + "';";
+    cmd.CommandText = "SELECT Password,UserType FROM Users WHERE Username='" + temp_user + "';";
     reader = cmd.ExecuteReader();
-    string result_str = "";
+    string result_str_p1 = "";
+    string result_str_p2 = "";
 
     while (reader.Read())
     {
-        result_str = reader.GetString(0);
+        result_str_p1 = reader.GetString(0);
+        result_str_p2 = reader.GetString(1);
 
     }
 
-    if (result_str == temp_password)
+    if (result_str_p1 == temp_password)
     {
         Console.WriteLine("Login Successful");
         Console.WriteLine("---------------------------");
+
+        if (result_str_p2 == "Student")
+        {
+            currentUser = new Student(temp_user,temp_password); 
+        }
+        else if (result_str_p2 == "PS")
+        {
+            currentUser = new PersonalSupervisor(temp_user, temp_password); 
+        }
+        else
+        {
+            currentUser = new SeniorTutor(temp_user, temp_password); 
+        }
         //Will login here
+        new MainMenu(currentUser).Select(); //creates an instance of mainmenu and selects it
     }
     else
     {
