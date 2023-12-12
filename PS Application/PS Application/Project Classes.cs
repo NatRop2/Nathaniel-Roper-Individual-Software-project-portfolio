@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity.Migrations.Model;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -116,9 +117,34 @@ namespace PS_Application
     }
     class Student : User //Student is a type of user
     {
-        public Student(string username, string password): base(username, password)
+        public float _grade1 { get; set; }
+        public float _grade2 { get; set; }
+        public float _grade3 { get; set; }
+        public float _gradeaverage { get; set; }
+        public string _status { get; set; }
+        public Student(string username, string password, float grade1, float grade2, float grade3, float gradeaverage, string status): base(username, password)
         {
             _accesslevel = 1;
+            _grade1 = grade1;
+            _grade2 = grade2;
+            _grade3 = grade3;
+            _gradeaverage = gradeaverage;
+            _status = status;
+        }
+        public void UpdateAverage()
+        {
+            _gradeaverage = (_grade1 + _grade2 + _grade3) / 3;
+
+        }
+        public void UpdateStatus()
+        {
+            Console.WriteLine();
+            Console.WriteLine("How is your current University experience?");
+            _status = Console.ReadLine();
+        }
+        public void UpdateDatabase()
+        {
+
         }
     }
     class PersonalSupervisor : User //Personal Supervisor is a type of user

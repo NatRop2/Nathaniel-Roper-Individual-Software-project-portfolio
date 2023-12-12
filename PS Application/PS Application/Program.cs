@@ -79,7 +79,21 @@ while (counter < 5)
 
         if (result_str_p2 == "Student")
         {
-            currentUser = new Student(temp_user,temp_password); 
+            cmd.CommandText = "SELECT * FROM Students WHERE Username='" + temp_user + "';";
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                result_float_p1 = reader.GetString(1);
+                result_float_p2 = reader.GetString(2);
+                result_float_p3 = reader.GetString(3);
+                result_float_p4 = reader.GetString(4);
+                result_str_p1 = reader.GetString(5);
+                result_str_p2 = reader.GetString(6);
+
+            }
+
+            currentUser = new Student(temp_user,temp_password, );
+            
         }
         else if (result_str_p2 == "PS")
         {
