@@ -110,6 +110,10 @@ while (counter < 5)
         
         //Will login here
         new MainMenu(currentUser).Select(); //creates an instance of mainmenu and selects it
+        //Once the user exits
+        System.Environment.Exit(0);
+
+
     }
     else
     {
@@ -121,7 +125,6 @@ while (counter < 5)
 }
 Console.WriteLine("Too many attempts");
 connection.Close();
-Console.ReadLine();
 
 
 
