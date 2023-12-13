@@ -20,7 +20,7 @@ Console.WriteLine("---------------------------");
 //Setting up variables for the loops
 string temp_user = "";
 string temp_password = "";
-User currentUser = new User(temp_user,temp_password);
+User currentUser = new User(temp_user, temp_password);
 int counter = 0;
 bool user_exists = false;
 SQLiteDataReader reader;
@@ -81,18 +81,22 @@ while (counter < 5)
         {
             cmd.CommandText = "SELECT * FROM Students WHERE Username='" + temp_user + "';";
             reader = cmd.ExecuteReader();
+            float result_float_p1 = 0;
+            float result_float_p2 = 0;
+            float result_float_p3 = 0;
+            float result_float_p4 = 0;
             while (reader.Read())
             {
-                result_float_p1 = reader.GetString(1);
-                result_float_p2 = reader.GetString(2);
-                result_float_p3 = reader.GetString(3);
-                result_float_p4 = reader.GetString(4);
+                result_float_p1 = reader.GetFloat(1);
+                result_float_p2 = reader.GetFloat(2);
+                result_float_p3 = reader.GetFloat(3);
+                result_float_p4 = reader.GetFloat(4);
                 result_str_p1 = reader.GetString(5);
                 result_str_p2 = reader.GetString(6);
 
             }
 
-            currentUser = new Student(temp_user,temp_password, );
+            currentUser = new Student(temp_user, temp_password, result_float_p1, result_float_p2, result_float_p3, result_float_p4, result_str_p1, result_str_p2);
             
         }
         else if (result_str_p2 == "PS")
@@ -101,8 +105,9 @@ while (counter < 5)
         }
         else
         {
-            currentUser = new SeniorTutor(temp_user, temp_password); 
+            currentUser = new SeniorTutor(temp_user, temp_password);
         }
+        
         //Will login here
         new MainMenu(currentUser).Select(); //creates an instance of mainmenu and selects it
     }
