@@ -145,7 +145,8 @@ namespace PS_Application
         public override void CreateMenu() //Leads to: 
         {
             _menuItems.Clear();
-;
+            _menuItems.Add(new SupervisorBookMeetingMenu(_supervisor));
+            _menuItems.Add(new SupervisorCheckSummaryMenu(_supervisor));
             _menuItems.Add(new ExitMenuItem(this));
         }
 
@@ -154,7 +155,62 @@ namespace PS_Application
             return "Main Menu";
         }
     }
-    class SupervisorBookMeetingMenu : ConsoleMenu //allows you to book a meeting as a student
+    class MainMenuSeniorTutor : ConsoleMenu //The main menu for senior tutors
+    {
+
+        SeniorTutor _tutor;
+
+        public MainMenuSeniorTutor(SeniorTutor tutor) //The main menu from the view of senior tutors
+        {
+            _tutor = tutor;
+        }
+
+        public override void CreateMenu() //Leads to: 
+        {
+            _menuItems.Clear();
+            foreach (Student student in _tutor._studentManager._Students) //creates a menu item for each student
+            {
+                _menuItems.Add(new SeniorTutorCheckSummaryMenuItem(_tutor, student));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+
+        public override string MenuText()
+        {
+            return "Main Menu";
+        }
+    }
+    class SeniorTutorCheckSummaryMenuItem : MenuItem //allows you to check summaries as a senior tutor
+    {
+        SeniorTutor _tutor;
+        Student _student;
+
+        public SeniorTutorCheckSummaryMenuItem(SeniorTutor tutor, Student student)
+        {
+            _tutor = tutor;
+            _student = student;
+        }
+
+        public override string MenuText()
+        {
+            return _student._username.ToString();
+        }
+
+        public override void Select()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Student - " + _student._username);
+            Console.WriteLine("Grade 1 - " + _student._grade1.ToString());
+            Console.WriteLine("Grade 2 - " + _student._grade2.ToString());
+            Console.WriteLine("Grade 3 - " + _student._grade3.ToString());
+            Console.WriteLine("Overall Grade - " + ((_student._grade1 + _student._grade2 + _student._grade3) / 3).ToString());
+            Console.WriteLine("Next Meeting - " + _student._meeting);
+            Console.WriteLine("Student Summary - '" + _student._status + "'");
+            Console.WriteLine("Personal Supervisor - " + _student._ps);
+            Console.WriteLine();
+        }
+    }
+    class SupervisorBookMeetingMenu : ConsoleMenu //allows you to book a meeting as a supervisor
     {
         PersonalSupervisor _supervisor;
 
@@ -171,8 +227,56 @@ namespace PS_Application
         public override void CreateMenu() //Leads to: 
         {
             _menuItems.Clear();
-            
+            foreach (Student student in _supervisor._studentManager._Students) //creates a menu for each student
+            {
+                _menuItems.Add(new SupervisorBookMeetingMenuItem(_supervisor, student));
+            }
             _menuItems.Add(new ExitMenuItem(this));
+        }
+    }
+    class SupervisorCheckSummaryMenu : ConsoleMenu //allows you to book a meeting as a supervisor
+    {
+        PersonalSupervisor _supervisor;
+
+        public SupervisorCheckSummaryMenu(PersonalSupervisor supervisor)
+        {
+            _supervisor = supervisor;
+        }
+
+        public override string MenuText()
+        {
+            return "Check Summary";
+        }
+
+        public override void CreateMenu() //Leads to: 
+        {
+            _menuItems.Clear();
+            foreach (Student student in _supervisor._studentManager._Students) //creates a menu for each student
+            {
+                _menuItems.Add(new SupervisorCheckSummaryMenuItem(_supervisor, student));
+            }
+            _menuItems.Add(new ExitMenuItem(this));
+        }
+    }
+    class SupervisorBookMeetingMenuItem : MenuItem //allows you to book a meeting as a supervisor
+    {
+        PersonalSupervisor _supervisor;
+        Student _student;
+
+        public SupervisorBookMeetingMenuItem(PersonalSupervisor supervisor, Student student)
+        {
+            _supervisor = supervisor;
+            _student = student;
+        }
+
+        public override string MenuText()
+        {
+            return _student._username.ToString();
+        }
+
+        public override void Select()
+        {
+            _student.BookMeeting();
         }
     }
     class StudentBookMeetingMenuItem : MenuItem //allows you to book a meeting as a student
@@ -193,6 +297,36 @@ namespace PS_Application
         {
             _student.BookMeeting();
             
+        }
+    }
+    class SupervisorCheckSummaryMenuItem : MenuItem //allows you to book a meeting as a supervisor
+    {
+        PersonalSupervisor _supervisor;
+        Student _student;
+
+        public SupervisorCheckSummaryMenuItem(PersonalSupervisor supervisor, Student student)
+        {
+            _supervisor = supervisor;
+            _student = student;
+        }
+
+        public override string MenuText()
+        {
+            return _student._username.ToString();
+        }
+
+        public override void Select()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Student - " + _student._username);
+            Console.WriteLine("Grade 1 - " + _student._grade1.ToString());
+            Console.WriteLine("Grade 2 - " + _student._grade2.ToString());
+            Console.WriteLine("Grade 3 - " + _student._grade3.ToString());
+            Console.WriteLine("Overall Grade - " + ((_student._grade1 + _student._grade2 + _student._grade3) / 3).ToString());
+            Console.WriteLine("Next Meeting - " + _student._meeting);
+            Console.WriteLine("Student Summary - '" + _student._status + "'");
+            Console.WriteLine("Personal Supervisor - " + _student._ps);
+            Console.WriteLine();
         }
     }
     class StudentUpdateStatusMenuItem : MenuItem //allows you to update your status as a student

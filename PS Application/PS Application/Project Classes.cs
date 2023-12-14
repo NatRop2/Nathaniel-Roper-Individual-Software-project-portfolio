@@ -29,7 +29,8 @@ namespace PS_Application
         public float _grade3 { get; set; }
         public string _status { get; set; }
         public string _meeting { get; set; }
-        public Student(string username, float grade1, float grade2, float grade3, string status, string meeting): base(username)
+        public string _ps { get; set; }
+        public Student(string username, float grade1, float grade2, float grade3, string status, string meeting, string ps): base(username)
         {
             _accesslevel = 1;
             _grade1 = grade1;
@@ -37,6 +38,7 @@ namespace PS_Application
             _grade3 = grade3;
             _status = status;
             _meeting = meeting;
+            _ps = ps;
         }
 
         public void UpdateStatus()
@@ -126,7 +128,7 @@ namespace PS_Application
     }
     public class SeniorTutor : User //Senior Tutor is a type of user
     {
-        public SupervisorManager _personalSupervisorManager = new SupervisorManager(); //has its own supervisor manager
+        public StudentManager _studentManager = new StudentManager(); //has its own supervisor manager
         public SeniorTutor(string username, string password) : base(username)
         {
             _accesslevel = 3;
@@ -144,20 +146,6 @@ namespace PS_Application
         public void AddStudent(Student student)
         {
             _Students.Add(student);
-        }
-    }
-
-    public class SupervisorManager //contains a list of supervisors associated with a senior tutor
-    {
-        public List<PersonalSupervisor> _PersonalSupervisors { get; private set; }
-
-        public SupervisorManager()
-        {
-            _PersonalSupervisors = new List<PersonalSupervisor>();
-        }
-        public void AddStudent(PersonalSupervisor personalsupervisor)
-        {
-            _PersonalSupervisors.Add(personalsupervisor);
         }
     }
 }

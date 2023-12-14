@@ -84,6 +84,7 @@ while (counter < 5)
             float result_float_p1 = 0;
             float result_float_p2 = 0;
             float result_float_p3 = 0;
+            string ps = "";
             while (reader.Read())
             {
                 result_float_p1 = reader.GetFloat(1);
@@ -91,10 +92,11 @@ while (counter < 5)
                 result_float_p3 = reader.GetFloat(3);
                 result_str_p1 = reader.GetString(5);
                 result_str_p2 = reader.GetString(6);
+                ps = reader.GetString(7);
 
             }
             connection.Close();
-            Student currentStudent = new Student(temp_user, result_float_p1, result_float_p2, result_float_p3, result_str_p1, result_str_p2);
+            Student currentStudent = new Student(temp_user, result_float_p1, result_float_p2, result_float_p3, result_str_p1, result_str_p2, ps);
             //Will login here
             new MainMenuStudent(currentStudent).Select(); //creates an instance of mainmenu and selects it
 
@@ -111,6 +113,7 @@ while (counter < 5)
             float grade3 = 0;
             string selfreport = "";
             string meeting = "";
+            string ps = "";
 
             while (reader.Read())
             {
@@ -120,7 +123,8 @@ while (counter < 5)
                 grade3 = reader.GetFloat(3);
                 selfreport = reader.GetString(5);
                 meeting = reader.GetString(6);
-                Student currentStudent = new Student(username, grade1, grade2, grade3, selfreport, meeting);
+                ps = reader.GetString(7);
+                Student currentStudent = new Student(username, grade1, grade2, grade3, selfreport, meeting, ps);
                 currentSupervisor._studentManager.AddStudent(currentStudent);
             }
             connection.Close();
@@ -128,9 +132,31 @@ while (counter < 5)
         }
         else
         {
+            SeniorTutor currentTutor = new SeniorTutor(temp_user, temp_password);
+            cmd.CommandText = "SELECT * FROM Students;";
+            reader = cmd.ExecuteReader();
+            string username = "";
+            float grade1 = 0;
+            float grade2 = 0;
+            float grade3 = 0;
+            string selfreport = "";
+            string meeting = "";
+            string ps = "";
+
+            while (reader.Read())
+            {
+                username = reader.GetString(0);
+                grade1 = reader.GetFloat(1);
+                grade2 = reader.GetFloat(2);
+                grade3 = reader.GetFloat(3);
+                selfreport = reader.GetString(5);
+                meeting = reader.GetString(6);
+                ps = reader.GetString(7);
+                Student currentStudent = new Student(username, grade1, grade2, grade3, selfreport, meeting, ps);
+                currentTutor._studentManager.AddStudent(currentStudent);
+            }
             connection.Close();
-            SeniorTutor currentSeniorTutor = new SeniorTutor(temp_user, temp_password);
-            //new MainMenuSeniorTutor(currentUser).Select(); //creates an instance of mainmenu and selects it
+            new MainMenuSeniorTutor(currentTutor).Select(); //creates an instance of mainmenu and selects it
         }
         
         
