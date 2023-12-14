@@ -68,16 +68,19 @@ namespace PS_Application
                     }
 
                 }
-                Console.WriteLine("Meeting successfully added.");
-                _meeting = (tempmeeting);
-                SQLiteConnection connection;
-                connection = new SQLiteConnection(@"Data Source=..\..\Files\CourseworkDatabase.db");
-                connection.Open();
-                SQLiteCommand cmd;
-                cmd = connection.CreateCommand();
-                cmd.CommandText = ("UPDATE Students SET MeetingTimes = '" + _meeting + "' WHERE Username = '" + _username + "';");
-                cmd.ExecuteNonQuery();
-                connection.Close();
+                if (userinput == "y")
+                {
+                    Console.WriteLine("Meeting successfully added.");
+                    _meeting = (tempmeeting);
+                    SQLiteConnection connection;
+                    connection = new SQLiteConnection(@"Data Source=..\..\Files\CourseworkDatabase.db");
+                    connection.Open();
+                    SQLiteCommand cmd;
+                    cmd = connection.CreateCommand();
+                    cmd.CommandText = ("UPDATE Students SET MeetingTimes = '" + _meeting + "' WHERE Username = '" + _username + "';");
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
             }
             else
             {
